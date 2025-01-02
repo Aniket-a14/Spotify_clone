@@ -18,7 +18,7 @@ function secondsToMinutesSeconds(seconds) {
 
 async function getsong(folder) {
     currfolder = folder;
-    let a = await fetch(`http://127.0.0.1:3000/projects/spotify_clone/${folder}/`);
+    let a = await fetch(`http://127.0.0.1:3000/${folder}/`);
     let response = await a.text();
     let div = document.createElement("div");
     div.innerHTML = response;
@@ -56,7 +56,7 @@ async function getsong(folder) {
     return songs;
 }
 const playMusic = (track, pause = false) => {
-    currentsong.src = `/projects/spotify_clone/${currfolder}/` + track
+    currentsong.src = `/${currfolder}/` + track
     if (!pause) {
         currentsong.play()
         play.src = "svg/pause.svg"
@@ -68,7 +68,7 @@ const playMusic = (track, pause = false) => {
 }
 
 async function displayAlbums() {
-    let a = await fetch(`http://127.0.0.1:3000/projects/spotify_clone/songs/`);
+    let a = await fetch(`http://127.0.0.1:3000/songs/`);
     let response = await a.text();
     let div = document.createElement("div");
     div.innerHTML = response;
@@ -79,9 +79,9 @@ async function displayAlbums() {
     for (let index = 0; index < array.length; index++) {
         const e = array[index];
 
-        if (e.href.includes("/projects/spotify_clone/songs")) {
+        if (e.href.includes("/songs")) {
             let folder = e.href.split("/").slice(-2)[0]
-            let a = await fetch(`http://127.0.0.1:3000/projects/spotify_clone/songs/${folder}/info.json`);
+            let a = await fetch(`http://127.0.0.1:3000/songs/${folder}/info.json`);
             let response = await a.json();
 
 
@@ -96,7 +96,7 @@ async function displayAlbums() {
                                 </g>
                             </svg>
                         </div> 
-                        <img src="/projects/spotify_clone/songs/${folder}/cover.jpg" alt="">
+                        <img src="/songs/${folder}/cover.jpg" alt="">
                         <h2>${response.title}</h2>
                         <p>${response.description}</p>
                     </div>`
